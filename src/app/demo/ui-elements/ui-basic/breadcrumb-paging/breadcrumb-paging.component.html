@@ -1,0 +1,109 @@
+<div class="row">
+   <div class="col">
+    <button type="button" (click)="open(content)" class="btn btn-outline-primary">Import csv</button>
+    <button type="button" (click)="open(content)" class="btn btn-outline-primary">Import xlxs</button>
+    <button class="btn">
+      <select (change)="onSelectChange($event)"  [(ngModel)]="profileId" class="form-control" id="profileId">
+        <option selected value="">------ Select profile -----</option>
+        @for (profile of profiles; track profile) {
+          <option value="{{profile.id}}">{{profile.name}}</option>
+        }
+      </select>
+    </button>
+  </div>
+  <div class="col-xl-12">
+    <app-card cardTitle="Manage Profile" [options]="false" blockClass="table-border-style">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Login</th>
+              <th>Password</th>
+              <th>Profile name</th>
+              <th>Time limit</th>
+              <th>Data limit</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if(profileData != null){
+            @for (tiket of profileData.tikets; track tiket) {
+              <tr>
+                <td>{{tiket.login}}</td>
+                <td>{{tiket.password}}</td>
+                <td>{{profileData.name}}</td>
+                <td>{{tiket.timeLimit}}</td>
+                <td></td>
+                <td>
+                  <!-- @if(tiket.state){ -->
+                    <a *ngIf="!tiket.status" href="javascript:" class="label btn-rounded btn-danger text-white f-12 rounded-pill">pay</a>
+                  <!-- } -->
+                  <!-- @if(!tiket.state){ -->
+                    <a *ngIf="tiket.status" href="javascript:" class="label btn-rounded btn-success text-white f-12 rounded-pill">active</a>
+                  <!-- } -->
+                </td>
+              </tr>
+            }}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="javascript:" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Import tikets from csv</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit(c)" [formGroup]="tiketForm">
+        <div class="form-group">
+          <label for="profileId">Select profile</label>
+          <select class="form-control" formControlName="profileId" name="profileId" id="profileId">
+            <option selected value="">------ Select profile -----</option>
+            @for (profile of profiles; track profile) {
+              <option value="{{profile.id}}">{{profile.name}}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" id="price" aria-describedby="priceHelp" placeholder="Enter price" />
+        </div>
+        <div class="form-group">
+          <label for="files">Select file</label>
+          <input (change)="handleFileInput($event)" class="form-control" type="file" name="files" id="files">
+        </div>
+        <button type="submit" [disabled]="!tiketForm.valid" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="d('Cross click')">Close</button>
+      <!-- <button type="button" class="btn btn-outline-secondary" (click)="c('Save click')">Save</button> -->
+    </div>
+  </ng-template>
+
+</div>

@@ -1,0 +1,45 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="mb-4">
+          <i class="feather icon-user-plus auth-icon"></i>
+          <i class="feather wifi"></i>
+        </div>
+        <h3 class="mb-4">information tikets</h3>
+        @if(profile){
+          <div class="input-group mb-3">
+            <input [disabled]="true" value="Profile: {{profile.name}}" type="text" class="form-control"/>
+          </div>
+          <div class="input-group mb-3">
+            <input [disabled]="true" type="text" value="Duree de connection:   {{profile.timeLimit}}" class="form-control"/>
+          </div>
+          <div class="input-group mb-4">
+            <input [disabled]="true" value="Prix:  {{profile.price}} FGN" type="text" class="form-control" />
+          </div>
+          <p class="mb-0 text-muted">
+            Choisissez un moyen de payement
+          </p>
+          <div class="image-container">
+            <button (click)="pay()" class="btn" type="button">
+              <img [src]="logoOM" alt="Image Orange money" />
+            </button>
+            <button (click)="msg('Paycard nest pas dispobile pour le moment')" class="btn" type="button">
+              <img [src]="logoPaycard" alt="Image Paycard" />
+            </button>
+            <button (click)="msg('Le servie n est pas disponible pour le moment')" class="btn" type="button">
+              <img [src]="logoVisa" alt="Image carte visa" />
+            </button>
+          </div>
+          <p>En cas de bessoin veuillez contacter: {{profile.wifiZone.contact}} </p>
+        }
+      </div>
+    </div>
+  </div>
+</div>
