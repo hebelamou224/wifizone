@@ -1,0 +1,24 @@
+// img {
+//   width: 200px;  /* Définit la largeur à 200 pixels */
+//   height: 150px; /* Définit la hauteur à 150 pixels */
+// }
+
+// img {
+//   width: 100%;
+//   height: 200px;      /* Fixe la hauteur à 200px */
+//   object-fit: cover;  /* L'image couvre entièrement le conteneur sans déformation */
+// }
+
+.image-container {
+  // width: 200px;
+  display: flex;            /* Utilise Flexbox pour organiser les images */
+  justify-content: space-between; /* Espace entre les images */
+  align-items: center;      /* Centre les images verticalement dans le conteneur */
+}
+
+.image-container img {
+  margin: 20px 0;
+  width: 100%;  
+  height: 100%; 
+  scale: 1.6;
+}

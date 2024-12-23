@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import Swal from 'sweetalert2';
@@ -27,6 +27,7 @@ export default class PaymentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
+    private router: Router
   ) { }
   ngOnInit(): void {
     this.tiketData$.subscribe((value)=> this.tiketData=value)
@@ -38,39 +39,6 @@ export default class PaymentComponent implements OnInit {
     this.tiketSubject.next(newValue);
   }
 
-  async getTiketAtBy(){
-    this.apiService.getProfile(this.profileId).subscribe({
-      next: async (response)=>{
-        this.profile = response
-        console.log('profile', this.profile)
-        if(response && response.tikets.length > 0){
-          response.tikets = await response.tikets.map((tiket)=>{
-            if(tiket && tiket.status){
-              return tiket;
-            }
-          })
-          if(response.tikets.length > 0){
-            console.log('liste tikets', response.tikets)
-            console.log('tiket achete', response.tikets[0])
-            // this.pay(this.tiket = response.tikets[0])
-          }
-          else
-            this.msg("Accun tiket n'est disponible pour ce profile")
-        }
-      },
-      error: (error)=>{}
-    })
-
-    // if(this.profile && this.profile.tikets.length > 0){
-    //   this.profile.tikets = this.profile.tikets.map((tik)=>{
-    //     if(tik && tik.status && tik.status == true)
-    //       return tik; 
-    //   })
-    //   if(this.profile.tikets.length > 0)
-    //     return this.profile.tikets[0];
-    // }
-    // return null
-  }
   getProfile(){
     this.apiService.getProfile(this.profileId).subscribe({
       next: (response)=>{
@@ -118,23 +86,20 @@ export default class PaymentComponent implements OnInit {
 
   pay(){
     if(this.tiketData.length > 0){
-      console.log('=======bigin pay========')
       this.updateData(this.tiketData.filter(tiket=> tiket.status == true))
-      console.log('length:', this.tiketData.length)
-      console.log('first: ', this.tiketData[0] )
       if(this.tiketData.length > 0 && this.tiketData[0].status){
         const data = {id: this.tiketData[0].id, status: false, updatedAt: this.getFormattedDate() }
-        console.log(data)
         this.apiService.buyTiket(data).subscribe({
           next: (succes)=>{
             this.msg('Payement effectuctuer avec succes')
+            this.router.navigate([`/payment-success`,{ tiketId: `${data.id}` }]);
           },
           error: (error)=>{
             this.errorMsg("Une error s'est produite veuillez ressayer")
           }
         })
       }else{
-        console.log('========== end ==========')
+        this.errorMsg("Auccun tiket n'est disponible pour ce profile pour le moment")
       }
     }else{
       this.errorMsg("Auccun tiket n'est disponible pour ce profile pour le moment")

@@ -1,0 +1,33 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="mb-4">
+          <i class="feather icon-user-plus auth-icon"></i>
+          <i class="feather wifi"></i>
+        </div>
+        <h3 class="mb-4">Payement effectuer</h3>
+        <h6 class="mb-4">Bienvenu dans dans le reseau Guinet</h6>
+        @if(tiket){
+          <div class="input-group mb-3">
+            <input [disabled]="true" value="Login: {{tiket.login}}" type="text" class="form-control"/>
+          </div>
+          <div class="input-group mb-3">
+            <input [disabled]="true" type="text" value="Mot de passe:   {{tiket.password}}" class="form-control"/>
+          </div>
+          <div class="input-group mb-4">
+            <input [disabled]="true" value="Duree:  {{tiket.timeLimit}}" type="text" class="form-control" />
+          </div>
+          <button class="btn btn-primary shadow-2 mb-4">Connecter vous</button>
+          <button class="btn btn-primary shadow-2 mb-4" (click)="copyToClipboard(tiket)">Copier</button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

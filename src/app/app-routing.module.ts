@@ -3,11 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { GuestComponent } from './theme/layout/guest/guest.component';
 import PaymentComponent from './demo/pages/form-elements/payment/payment.component';
+import PaymentSuccessComponent from './demo/pages/form-elements/payment-success/payment-success.component';
+import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -52,8 +55,15 @@ const routes: Routes = [
   },
   {
     path: 'payment',
-    component: PaymentComponent
-  }
+    component: PaymentComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'payment-success',
+    component: PaymentSuccessComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
