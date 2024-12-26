@@ -5,10 +5,11 @@
   <li class="nav-item dropdown" ngbDropdown placement="auto">
     <a href="javascript:" data-toggle="dropdown" ngbDropdownToggle>Menu</a>
     <ul class="dropdown-menu" ngbDropdownMenu>
-      <li><a class="dropdown-item" href="javascript:">Ajouter un wifi zone</a></li>
-      <li><a class="dropdown-item" href="javascript:">Mes tikets</a></li>
+      <li><a class="dropdown-item" [routerLink]="['/basic/button']">Mes wifizones</a></li>
+      <li><a class="dropdown-item" [routerLink]="['/basic/breadcrumb-paging']">Mes profiles</a></li>
+      <li><a class="dropdown-item" [routerLink]="['/basic/breadcrumb-paging']">Mes tikets</a></li>
       <li>
-        <a class="dropdown-item" href="javascript:">Control</a>
+        <a class="dropdown-item" [routerLink]="['/basic/collapse']">Mes recettes journaliere</a>
       </li>
     </ul>
   </li>

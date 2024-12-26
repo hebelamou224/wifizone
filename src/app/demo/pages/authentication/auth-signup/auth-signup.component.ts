@@ -49,7 +49,7 @@ export default class AuthSignupComponent implements OnInit {
       next: (us)=>{
         console.log(us)
         this.msgService.msgSucces("Votre compte a ete creer avec succes")
-        this.router.navigate([`/auth/signin`,{ username: us.username, password: us.password}]);
+        this.router.navigate([`/auth/signin`,{ username: us.username}]);
       },
       error: (error)=>{
         console.log(error)

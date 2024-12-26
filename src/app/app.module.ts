@@ -29,6 +29,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import PaymentComponent from './demo/pages/form-elements/payment/payment.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { AuthErrorInterceptor } from './core/interceptors/auth-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,17 @@ import PaymentComponent from './demo/pages/form-elements/payment/payment.compone
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
-      multi: true, // Important pour permettre plusieurs intercepteurs
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthErrorInterceptor,
+      multi: true
     },
   ],
   bootstrap: [AppComponent]

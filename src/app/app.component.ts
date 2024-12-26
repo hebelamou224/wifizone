@@ -23,9 +23,6 @@ export class AppComponent implements OnInit {
       }
       window.scrollTo(0, 0);
     });
-    // this.spinner.show();
-    // setTimeout(() => {
-    //   this.spinner.hide();
-    // }, 5000);
+    
   }
 }

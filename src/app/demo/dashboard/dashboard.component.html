@@ -5,8 +5,9 @@
         <div class="row d-flex align-items-center">
           <div class="col-9">
             <h3 class="f-w-300 d-flex align-items-center m-b-0">
-              <i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>
-              4958 GNF
+              <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>
+              <div>{{compte.solde}} {{compte.devise | uppercase}}</div>
+              <!-- <div *ngIf="compte && compte.solde">{{compte.solde}} FGN</div> -->
             </h3>
           </div>
           <div class="col-3 text-end">

@@ -92,55 +92,61 @@ const NavigationItems = [
   },
   {
     id: 'forms',
-    title: 'Management router',
+    title: 'Management profile',
     type: 'group',
     icon: 'icon-group',
     children: [
       {
-        id: 'manager-route',
-        title: 'Manger router',
+        id: 'Profile',
+        title: 'Profile',
         type: 'collapse',
         icon: 'fa fa-server',
         children: [
           {
-            id: 'one1',
-            title: 'One1',
+            id: 'profile',
+            title: 'profile',
             type: 'item',
             url: '/forms/basic'
           },
           {
-            id: 'one2',
-            title: 'One2',
+            id: 'settings',
+            title: 'Settings',
             type: 'item',
             url: '/forms/basic'
-          },
+          }
         ]
       },
       {
-        id: 'monitoring',
-        title: 'Monitoring',
+        id: 'Administration',
+        title: 'admin',
         type: 'collapse',
         icon: 'feather icon-pie-chart',
+        role: 'admin',
+        isAdmin: true,
         children: [
           {
-            id: 'monitoring1',
-            title: 'Monitoring2',
+            id: 'wifizones',
+            title: 'Wifizones',
             type: 'item',
             url: '/tables/bootstrap'
           },
           {
-            id: 'monitoring2',
-            title: 'Monitoring',
+            id: 'profiles',
+            title: 'Profiles',
             type: 'item',
             url: '/tables/bootstrap'
           },
           {
-            id: 'apexChart',
-            title: 'Monitoring router',
+            id: 'tikets',
+            title: 'Tikets',
             type: 'item',
             url: 'apexchart',
-            // classes: 'nav-item',
-            // icon: 'feather icon-pie-chart'
+          },
+          {
+            id: 'users',
+            title: 'users',
+            type: 'item',
+            url: 'apexchart'
           }
         ]
       },

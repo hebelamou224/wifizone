@@ -15,7 +15,6 @@
               <th>Price</th>
               <th>Comment</th>
               <th>NBres tikets</th>
-              <th>Link</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -28,21 +27,10 @@
                 <td>{{profile.price}} FGN</td>
                 <td>{{profile.comment}}</td>
                 <td>{{profile.tikets | arraySize }}</td>
-                <td>{{link}}</td>
                 <td>
-                  <!-- <a href="javascript:" class="label theme-bg2 text-white f-12 rounded-pill">Edit</a> -->
-                  <!-- <swal
-                    #deleteSwal
-                    title="Delete '{{profile.name}}' ?"
-                    text="Attention ! Si vous supprimer le profile, les tikets lie a ce profile seront supprimes aussi"
-                    icon="question"
-                    [showCancelButton]="true"
-                    [focusCancel]="true"
-                    >
-                  </swal> -->
-                  <!-- <button [swal]="deleteSwal" (confirm)="deleteProfile(profile.id)" class="label btn theme-bg text-white f-12 rounded-pill">Remove</button> -->
                   <button (click)="delete(profile.id)" class="label btn btn-danger text-white f-12 rounded-pill">Remove</button>
                   <a href="javascript:" class="label theme-bg text-white f-12 rounded-pill" (click)="copyToClipboard(profile)">Copy link</a>
+                  <a class="link-test" [routerLink]="['/payment']" [queryParams]="{ profileId: profile.id }" target="_blank">Test</a>
                 </td>
               </tr>
             }

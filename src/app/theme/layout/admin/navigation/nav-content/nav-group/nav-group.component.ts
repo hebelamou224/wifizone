@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 // project import
 import { NavigationItem } from '../../navigation';
+import { LocalServiceStorage } from 'src/app/core/services/local-storage.service';
 
 @Component({
   selector: 'app-nav-group',
@@ -13,12 +14,16 @@ import { NavigationItem } from '../../navigation';
 export class NavGroupComponent implements OnInit {
   // public props
   @Input() item: NavigationItem;
+  role: string
 
   // constructor
-  constructor(private location: Location) {}
+  constructor(private location: Location, private localStorage: LocalServiceStorage) {}
 
   // life cycle event
   ngOnInit() {
+    const user: any = this.localStorage.getItem('user')
+    if(user)
+      this.role = user.profile;
     let current_url = this.location.path();
     if (this.location['_baseHref']) {
       current_url = this.location['_baseHref'] + this.location.path();

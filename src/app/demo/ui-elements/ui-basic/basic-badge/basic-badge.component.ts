@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -6,11 +6,15 @@ import { ArraySizePipe } from 'src/app/core/pipes/array-size.pipe';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
+import { RouterModule } from '@angular/router';
+import { LocalServiceStorage } from 'src/app/core/services/local-storage.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-basic-badge',
   standalone: true,
-  imports: [SharedModule, ArraySizePipe,SweetAlert2Module],
+  imports: [RouterModule, SharedModule, ArraySizePipe,SweetAlert2Module],
   templateUrl: './basic-badge.component.html',
   styleUrls: ['./basic-badge.component.scss'],
   providers: [NgbModalConfig, NgbModal],
@@ -28,7 +32,9 @@ export default class BasicBadgeComponent implements OnInit{
 		config: NgbModalConfig,
 		private modalService: NgbModal,
     private apiService: ApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private localStorageService: LocalServiceStorage,
+    @Inject(DOCUMENT) private document: Document
 	) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
@@ -51,7 +57,7 @@ export default class BasicBadgeComponent implements OnInit{
 	}
 
   loadProfiles(): void {
-    this.apiService.getProfiles().subscribe({
+    this.apiService.getProfiles(this.localStorageService.getUserId()).subscribe({
       next: (data) => {
         console.log('Profiles:', data);
         this.profiles = data;
@@ -63,7 +69,7 @@ export default class BasicBadgeComponent implements OnInit{
   }
 
   loadWiFiZones(): void {
-    this.apiService.getWiFiZones().subscribe({
+    this.apiService.getWiFiZones(this.localStorageService.getUserId()).subscribe({
       next: (data) => {
         console.log('WiFiZone:', data);
         this.wifizones = data;
@@ -177,7 +183,8 @@ export default class BasicBadgeComponent implements OnInit{
 
   copyToClipboard(profile): void {
     const textArea = document.createElement('textarea');
-    textArea.value = profile.id;
+    // textArea.value = `${environment.FRONT_URL}/payment?profileId=${profile.id}`;
+    textArea.value = `${this.document.location.origin}/payment?profileId=${profile.id}`;
     textArea.style.position = 'fixed';
     textArea.style.opacity = '0';
     document.body.appendChild(textArea);

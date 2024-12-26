@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { BehaviorSubject } from 'rxjs';
+import { LocalServiceStorage } from 'src/app/core/services/local-storage.service';
 
 @Component({
   selector: 'app-breadcrumb-paging',
@@ -30,6 +31,7 @@ export default class BreadcrumbPagingComponent implements OnInit {
 		private modalService: NgbModal,
     private apiService: ApiService,
     private fb: FormBuilder,
+    private localStorageService: LocalServiceStorage
 	) {
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -93,20 +95,19 @@ export default class BreadcrumbPagingComponent implements OnInit {
   }
 
   loadingProfiles(){
-    this.apiService.getProfiles().subscribe({
-      next: (data) => {
-        console.log('Profiles:', data);
-        this.profiles = data;
-        if(this.profiles.length > 0){
-          // this.profile = this.profiles[0]
-          this.updateData(this.profiles[0])
-        }
-          
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement des profils:', error);
-      },
-    });
+    const userId = this.localStorageService.getUserId()
+    if(userId){
+      this.apiService.getProfiles(userId).subscribe({
+        next: (data) => {
+          console.log('Profiles:', data);
+          this.profiles = data;
+          if(this.profiles.length > 0){
+            this.updateData(this.profiles[0])
+          }
+        },
+        error: (error) => {console.error('Erreur lors du chargement des profils:', error);},
+      });
+    }
   }
 
   loadingProfile(profileId){

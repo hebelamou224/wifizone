@@ -56,12 +56,12 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'payment-success',
     component: PaymentSuccessComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: '' }
 ];

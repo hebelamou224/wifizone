@@ -44,11 +44,12 @@ export default class AuthSigninComponent implements OnInit {
 
   singin(auth){
     this.authService.signin(auth).subscribe({
-      next: (user)=>{
+      next: (payload)=>{
         this.authService.login()
-        this.localServiceStorage.setItem('user',user)
-        this.localServiceStorage.setItem('token',user.token)
-        this.msgService.msgSucces('Authentification reussie', `Bienvenu ${user.username}`)
+        this.localServiceStorage.clear()
+        this.localServiceStorage.setItem('user',payload)
+        this.localServiceStorage.setItem('token',payload.token)
+        this.msgService.msgSucces('Authentification reussie', `Bienvenu ${payload.username}`)
         this.router.navigate([`/dashboard`]);
       },
       error: (error)=>{

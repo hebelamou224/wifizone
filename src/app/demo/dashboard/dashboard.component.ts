@@ -18,6 +18,10 @@ import '../../../assets/charts/amchart/worldLow.js';
 
 import dataJson from 'src/fake-data/map_data';
 import mapColor from 'src/fake-data/map-color-data.json';
+import { UserService } from 'src/app/core/services/user.service';
+import { LocalServiceStorage } from 'src/app/core/services/local-storage.service';
+import { BehaviorSubject } from 'rxjs';
+import { MsgService } from 'src/app/core/services/msg.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +31,21 @@ import mapColor from 'src/fake-data/map-color-data.json';
   styleUrls: ['./dashboard.component.scss']
 })
 export default class DashboardComponent implements OnInit {
+
+  compteSubject = new BehaviorSubject(0)
+  compteSubject$ = this.compteSubject.asObservable()
+  compte: any
+
+  constructor(
+    private readonly userService: UserService,
+    private readonly localStorage: LocalServiceStorage,
+    private readonly msgService: MsgService
+  ){
+    this.compteSubject$.subscribe((value)=>this.compte=value)
+  }
   ngOnInit() {
+    this.getUser()
+
     setTimeout(() => {
       const latlong = dataJson;
 
@@ -231,6 +249,21 @@ export default class DashboardComponent implements OnInit {
         ]
       });
     }, 500);
+  }
+
+  updateValueSolde(value): void{
+    this.compteSubject.next(value)
+  }
+  getUser(){
+    const user: any = this.localStorage.getItem('user')
+    if(user){
+      this.userService.getUser(user.userId).subscribe({
+        next: (user)=>{
+          this.updateValueSolde(user.compte)
+        },
+        error: (error)=>{this.msgService.errorMsg(error.error.title, `Une error au chargement de votre compte ${error.error.message}`)}
+      })
+    }
   }
 
   sales = [

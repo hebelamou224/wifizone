@@ -4,6 +4,8 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { WiFiZoneService } from 'src/app/core/services/wifizone.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { MsgService } from 'src/app/core/services/msg.service';
+import { LocalServiceStorage } from 'src/app/core/services/local-storage.service';
 
 @Component({
   selector: 'app-basic-button',
@@ -22,7 +24,9 @@ export default class BasicButtonComponent implements OnInit {
 		config: NgbModalConfig,
 		private modalService: NgbModal,
     private wifizoneService: WiFiZoneService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private msgService: MsgService,
+    private localStorageService: LocalServiceStorage
 	) {
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -41,37 +45,44 @@ export default class BasicButtonComponent implements OnInit {
 	}
 
   loadWiFiZones(): void {
-    this.wifizoneService.getWiFiZones().subscribe({
-      next: (data) => {
-        console.log('WiFiZone:', data);
-        this.wifizones = data;
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement des WiFiZone:', error);
-        this.errorMsg()
-      },
-    });
+    const userId = this.localStorageService.getUserId()
+    if(userId){
+      this.wifizoneService.getWiFiZones(userId).subscribe({
+        next: (data) => {
+          console.log('WiFiZone:', data);
+          this.wifizones = data;
+        },
+        error: (error) => {
+          console.error('Erreur lors du chargement des WiFiZone:', error);
+          if(error.status === 401)
+            this.msgService.errorMsg("Access denied", "Your session has expired, try connect again")
+          else
+            this.msgService.errorMsg()
+        },
+      });
+    }
   }
 
   onSubmit(close: any) {
     if (this.wifizoneForm.valid) {
       close('Form submitted'); 
       const newWifizone = this.wifizoneForm.value;
-      console.log(`data: `, newWifizone)
+      if(this.localStorageService.getUserId())
+        newWifizone.userId = this.localStorageService.getUserId()
       this.wifizoneService.createWiFiZone(newWifizone).subscribe({
         next: (data) => {
-          console.log(`succesfull: `,data)
-          Swal.fire({
-            title: `Successfull`,
-            text: `wifizone ${newWifizone.name} created successfull`,
-            icon: 'success',
-            confirmButtonText: 'Okay'
-          });
+          this.msgService.topLetfMsg(`wifizone ${newWifizone.name} created successfull`)
+          // Swal.fire({
+          //   title: `Successfull`,
+          //   text: `wifizone ${newWifizone.name} created successfull`,
+          //   icon: 'success',
+          //   confirmButtonText: 'Okay'
+          // });
           this.loadWiFiZones();
         },
         error: (error) => {
-          this.errorMsg()
           console.error('Erreur lors de la création du wifizone:', error);
+          this.msgService.error(error.error.message, error.error.title)
         },
       });
       this.wifizoneForm.reset({
