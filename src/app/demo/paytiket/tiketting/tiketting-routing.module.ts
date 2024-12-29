@@ -6,20 +6,20 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'badges',
-        loadComponent: () => import('./basic-badge/basic-badge.component')
+        path: 'profile',
+        loadComponent: () => import('./profile/tiketting-profile.component')
       },
       {
-        path: 'button',
-        loadComponent: () => import('./basic-button/basic-button.component')
+        path: 'wifizone',
+        loadComponent: () => import('./wifizone/tiketting-wifizone.component')
       },
       {
-        path: 'breadcrumb-paging',
-        loadComponent: () => import('./breadcrumb-paging/breadcrumb-paging.component')
+        path: 'tikets',
+        loadComponent: () => import('./tikets/tiketting-tiket.component')
       },
       {
-        path: 'collapse',
-        loadComponent: () => import('./basic-collapse/basic-collapse.component')
+        path: 'recette',
+        loadComponent: () => import('./recette/tiketting-recette.component')
       },
       {
         path: 'tabs-pills',
@@ -37,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UiBasicRoutingModule {}
+export class TiketingRoutingModule {}

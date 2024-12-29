@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-xl-12">
+    <app-card cardTitle="Users management" [options]="false" blockClass="table-border-style">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Fullname</th>
+              <th>Address</th>
+              <th>Contact</th>
+              <th>Email</th>
+              <th>IsLocked</th>
+              <th>Profile</th>
+              <th>Status</th>
+              <th>Create At</th>
+              <th>Nbrs Wzones</th>
+              <th>Solde</th>
+              <th>Frais</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of users; track user) {
+              <tr>
+                <td>{{user.username}}</td>
+                <td>{{user.fullname}}</td>
+                <td>{{user.address}}</td>
+                <td>{{user.contact}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.isLocked}}</td>
+                <td>{{user.profile}}</td>
+                <td>{{user.status}}</td>
+                <td>{{user.createAt | date:'medium'}}</td>
+                <td>{{user.wifizones | arraySize}}</td>
+                <td>{{user.compte.solde}} {{user.compte.devise}}</td>
+                <td>{{user.compte.frees}}%</td>
+                <td>
+                  <button class="label btn btn-danger text-white f-12 rounded-pill">Remove</button>
+                  @if(user.isLocked){
+                    <button (click)="locked(user.id,user.isLocked)" class="label btn btn-outline-danger text-black f-12 rounded-pill">Locked</button>
+                  }@else{
+                    <button (click)="locked(user.id,user.isLocked)" class="label btn btn-outline-success text-black f-12 rounded-pill">Unlocked</button>
+                  }
+                  @if(user.status){
+                    <button (click)="disabled(user.id,user.status)" class="label btn btn-outline-danger text-black f-12 rounded-pill">Disabled</button>
+                  }@else{
+                    <button (click)="disabled(user.id,user.status)" class="label btn btn-outline-success text-black f-12 rounded-pill">Enabled</button>
+                  }
+                  <button (click)="changeProfile(user.id,user.profile)" class="label btn btn-outline-success text-black f-12 rounded-pill">Profile</button>
+                  <button (click)="updateFrees(user.compte.id,user.compte)" class="label btn btn-outline-success text-black f-12 rounded-pill">frees</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="javascript:" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </app-card>
+  </div>
+</div>
+<!-- 
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="user">Sort by wifizone</label>
+      <select (change)="onSelectChangeWifizone($event)" class="form-control" id="user">
+        <option value="all">--Select all wifizone--</option>
+        @for (wifizone of wifizones; track wifizone) {
+          <option value="{{wifizone.id}}">{{wifizone.name}}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div class="col-xl-12">
+    <app-card cardTitle="Manage Profile" [options]="false" blockClass="table-border-style">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Wifi zone</th>
+              <th>Profile name</th>
+              <th>Time limit</th>
+              <th>Price</th>
+              <th>Comment</th>
+              <th>NBres tikets</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (profile of profiles; track profile) {
+              <tr>
+                <td>{{profile.wifiZone.name}}</td>
+                <td>{{profile.name}}</td>
+                <td>{{profile.timeLimit}}</td>
+                <td>{{profile.price}} FGN</td>
+                <td>{{profile.comment}}</td>
+                <td>{{profile.tikets | arraySize }}</td>
+                <td>
+                  <button (click)="delete(profile.id)" class="label btn btn-danger text-white f-12 rounded-pill">Remove</button>
+                  <a href="javascript:" class="label theme-bg text-white f-12 rounded-pill" (click)="copyToClipboard(profile)">Copy link</a>
+                  <a class="link-test" [routerLink]="['/payment']" [queryParams]="{ profileId: profile.id }" target="_blank">Test</a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="javascript:" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="javascript:">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </app-card>
+  </div>
+</div> -->

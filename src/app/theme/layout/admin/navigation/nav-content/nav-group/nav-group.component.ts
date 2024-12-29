@@ -14,16 +14,15 @@ import { LocalServiceStorage } from 'src/app/core/services/local-storage.service
 export class NavGroupComponent implements OnInit {
   // public props
   @Input() item: NavigationItem;
-  role: string
+  isAdmin: boolean = false;
 
   // constructor
   constructor(private location: Location, private localStorage: LocalServiceStorage) {}
 
   // life cycle event
   ngOnInit() {
-    const user: any = this.localStorage.getItem('user')
-    if(user)
-      this.role = user.profile;
+    this.isAdmin = this.localStorage.isAdmin()
+
     let current_url = this.location.path();
     if (this.location['_baseHref']) {
       current_url = this.location['_baseHref'] + this.location.path();

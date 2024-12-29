@@ -11,11 +11,11 @@ import { LocalServiceStorage } from 'src/app/core/services/local-storage.service
   selector: 'app-breadcrumb-paging',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './breadcrumb-paging.component.html',
-  styleUrls: ['./breadcrumb-paging.component.scss'],
+  templateUrl: './tiketting-tiket.component.html',
+  styleUrls: ['./tiketting-tiket.component.scss'],
   providers: [NgbModalConfig, NgbModal],
 })
-export default class BreadcrumbPagingComponent implements OnInit {
+export default class TiketingTiketComponent implements OnInit {
   profiles: any[] = []
   tiketForm: FormGroup;
   profile: any

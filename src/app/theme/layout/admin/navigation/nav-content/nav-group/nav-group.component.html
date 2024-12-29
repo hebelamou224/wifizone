@@ -6,9 +6,17 @@
     @if (item.type == 'group') {
       <app-nav-group [item]="item"></app-nav-group>
     }
-    @if (item.type == 'collapse') {
-      <app-nav-collapse [item]="item"></app-nav-collapse>
+
+    @if(isAdmin){
+      @if (item.type == 'collapse') {
+        <app-nav-collapse [item]="item"></app-nav-collapse>
+      }
+    }@else{
+      @if (item.type == 'collapse' && item.id != 'Administration') {
+        <app-nav-collapse [item]="item"></app-nav-collapse>
+      }
     }
+    
     @if (item.type == 'item') {
       <app-nav-item [item]="item"></app-nav-item>
     }

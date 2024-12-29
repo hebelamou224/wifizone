@@ -8,10 +8,10 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   selector: 'app-basic-collapse',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './basic-collapse.component.html',
-  styleUrls: ['./basic-collapse.component.scss']
+  templateUrl: './tiketting-recette.component.html',
+  styleUrls: ['./tiketting-recette.component.scss']
 })
-export default class BasicCollapseComponent {
+export default class TiketingRecetteComponent {
   // private props
   isCollapsed = true;
   multiCollapsed1 = true;

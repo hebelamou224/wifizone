@@ -25,9 +25,9 @@ export default class AuthSignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       username: ['',Validators.required],
       password: ['',Validators.required],
-      email: ['', Validators.email],
-      btnCheckSaveDetail: [],
-      btnCheckNewsletter: []
+      email: ['', [Validators.required,Validators.email]],
+      btnCheckSaveDetail: [true],
+      btnCheckNewsletter: [true]
     })
   }
   ngOnInit(): void {
@@ -35,7 +35,6 @@ export default class AuthSignupComponent implements OnInit {
 
   onSubmit(){
     if(this.signupForm.valid){
-      console.log(this.signupForm.value)
       this.createUser(this.signupForm.value)
     }
   }
@@ -43,16 +42,16 @@ export default class AuthSignupComponent implements OnInit {
   get username(){
     return this.signupForm.get('username')
   }
+  get password(){return this.signupForm.get('password')}
+  get email(){return this.signupForm.get('email')}
 
   async createUser(user): Promise<any>{
     this.userService.createUser(user).subscribe({
       next: (us)=>{
-        console.log(us)
         this.msgService.msgSucces("Votre compte a ete creer avec succes")
         this.router.navigate([`/auth/signin`,{ username: us.username}]);
       },
       error: (error)=>{
-        console.log(error)
         this.msgService.errorMsg(error.error.title, error.error.message)
       }
     })

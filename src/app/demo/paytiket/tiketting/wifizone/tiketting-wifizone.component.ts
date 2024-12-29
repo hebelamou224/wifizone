@@ -11,11 +11,11 @@ import { LocalServiceStorage } from 'src/app/core/services/local-storage.service
   selector: 'app-basic-button',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './basic-button.component.html',
-  styleUrls: ['./basic-button.component.scss'],
+  templateUrl: './tiketting-wifizone.component.html',
+  styleUrls: ['./tiketting-wifizone.component.scss'],
   providers: [NgbModalConfig, NgbModal],
 })
-export default class BasicButtonComponent implements OnInit {
+export default class TiketingWifizoneComponent implements OnInit {
   wifizones: any[]=[]
   wifizoneForm: FormGroup;
   submitted = false;

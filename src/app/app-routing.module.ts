@@ -22,16 +22,16 @@ const routes: Routes = [
         loadComponent: () => import('./demo/dashboard/dashboard.component')
       },
       {
-        path: 'basic',
-        loadChildren: () => import('./demo/ui-elements/ui-basic/ui-basic.module').then((m) => m.UiBasicModule)
+        path: 'tiketting',
+        loadChildren: () => import('./demo/paytiket/tiketting/ui-basic.module').then((m) => m.UiBasicModule)
       },
       {
-        path: 'forms',
+        path: 'user',
         loadChildren: () => import('./demo/pages/form-elements/form-elements.module').then((m) => m.FormElementsModule)
       },
       {
-        path: 'tables',
-        loadChildren: () => import('./demo/pages/tables/tables.module').then((m) => m.TablesModule)
+        path: 'admin',
+        loadChildren: () => import('./demo/pages/admin/admin.module').then((m) => m.AdminModule)
       },
       {
         path: 'apexchart',

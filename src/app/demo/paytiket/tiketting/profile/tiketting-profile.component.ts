@@ -15,11 +15,11 @@ import { DOCUMENT } from '@angular/common';
   selector: 'app-basic-badge',
   standalone: true,
   imports: [RouterModule, SharedModule, ArraySizePipe,SweetAlert2Module],
-  templateUrl: './basic-badge.component.html',
-  styleUrls: ['./basic-badge.component.scss'],
+  templateUrl: './tiketting-profile.component.html',
+  styleUrls: ['./tiketting-profile.component.scss'],
   providers: [NgbModalConfig, NgbModal],
 })
-export default class BasicBadgeComponent implements OnInit{
+export default class TiketingProfileComponent implements OnInit{
   profiles: any[] = [];
   wifizones: any[] = []
   link: string = 'link here'

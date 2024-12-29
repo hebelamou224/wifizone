@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UiBasicRoutingModule } from './ui-basic-routing.module';
+import { TiketingRoutingModule } from './tiketting-routing.module';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, UiBasicRoutingModule]
+  imports: [CommonModule, TiketingRoutingModule]
 })
 export class UiBasicModule {}

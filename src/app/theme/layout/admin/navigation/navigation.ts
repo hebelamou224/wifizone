@@ -54,25 +54,25 @@ const NavigationItems = [
             id: 'button',
             title: 'Wifi zone',
             type: 'item',
-            url: '/basic/button'
+            url: '/tiketting/wifizone'
           },
           {
             id: 'profile',
             title: 'Profile',
             type: 'item',
-            url: '/basic/badges'
+            url: '/tiketting/profile'
           },
           {
             id: 'breadcrumb-pagination',
             title: 'Mes tikets',
             type: 'item',
-            url: '/basic/breadcrumb-paging'
+            url: '/tiketting/tikets'
           },
           {
             id: 'collapse',
             title: 'Recette',
             type: 'item',
-            url: '/basic/collapse'
+            url: '/tiketting/recette'
           },
           // {
           //   id: 'tabs-pills',
@@ -91,7 +91,7 @@ const NavigationItems = [
     ]
   },
   {
-    id: 'forms',
+    id: 'Management',
     title: 'Management profile',
     type: 'group',
     icon: 'icon-group',
@@ -104,15 +104,15 @@ const NavigationItems = [
         children: [
           {
             id: 'profile',
-            title: 'profile',
+            title: 'Profile',
             type: 'item',
-            url: '/forms/basic'
+            url: '/user/profile'
           },
           {
             id: 'settings',
             title: 'Settings',
             type: 'item',
-            url: '/forms/basic'
+            url: '/user/settings'
           }
         ]
       },
@@ -121,20 +121,18 @@ const NavigationItems = [
         title: 'admin',
         type: 'collapse',
         icon: 'feather icon-pie-chart',
-        role: 'admin',
-        isAdmin: true,
         children: [
           {
             id: 'wifizones',
             title: 'Wifizones',
             type: 'item',
-            url: '/tables/bootstrap'
+            url: '/admin/wifizones'
           },
           {
             id: 'profiles',
             title: 'Profiles',
             type: 'item',
-            url: '/tables/bootstrap'
+            url: '/admin/profiles'
           },
           {
             id: 'tikets',
@@ -144,86 +142,28 @@ const NavigationItems = [
           },
           {
             id: 'users',
-            title: 'users',
+            title: 'Users',
             type: 'item',
-            url: 'apexchart'
+            url: '/admin/users'
           }
         ]
       },
     ]
   },
-  // {
-  //   id: 'chart-maps',
-  //   title: 'Chart',
-  //   type: 'group',
-  //   icon: 'icon-charts',
-  //   children: [
-  //     {
-  //       id: 'apexChart',
-  //       title: 'ApexChart',
-  //       type: 'item',
-  //       url: 'apexchart',
-  //       classes: 'nav-item',
-  //       icon: 'feather icon-pie-chart'
-  //     }
-  //   ]
-  // },
   {
-    id: 'comptablite',
-    title: 'Comptabilite',
+    id: 'faq',
+    title: 'Answers questions',
     type: 'group',
     icon: 'icon-pages',
     children: [
       {
-        id: 'auth',
-        title: 'Authentication',
-        type: 'collapse',
-        icon: 'feather icon-lock',
-        children: [
-          {
-            id: 'signup',
-            title: 'Sign up',
-            type: 'item',
-            url: '/auth/signup',
-            target: true,
-            breadcrumbs: false
-          },
-          {
-            id: 'signin',
-            title: 'Sign in',
-            type: 'item',
-            url: '/auth/signin',
-            target: true,
-            breadcrumbs: false
-          },
-          {
-            id: 'sample-page',
-            title: 'Sample Page',
-            type: 'item',
-            url: '/sample-page',
-            classes: 'nav-item',
-            icon: 'feather icon-sidebar'
-          },
-          {
-            id: 'disabled-menu',
-            title: 'Disabled Menu',
-            type: 'item',
-            url: 'javascript:',
-            classes: 'nav-item disabled',
-            icon: 'feather icon-power',
-            external: true
-          },
-          {
-            id: 'buy_now',
-            title: 'Buy Now',
-            type: 'item',
-            icon: 'feather icon-book',
-            classes: 'nav-item',
-            url: 'https://codedthemes.com/item/datta-able-angular/',
-            target: true,
-            external: true
-          }
-        ]
+        id: 'faq',
+        title: 'FAQ',
+        type: 'item',
+        // url: '/faq',
+        url: '/sample-page',
+        icon: 'feather icon-home',
+        classes: 'nav-item'
       }
     ]
   }

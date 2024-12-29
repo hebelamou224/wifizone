@@ -34,10 +34,11 @@ export default class AuthSigninComponent implements OnInit {
     this.signinForm.get('username').setValue(this.route.snapshot.paramMap.get('username')!)
     this.signinForm.get('password').setValue(this.route.snapshot.paramMap.get('password')!)
   }
-
+  get username(){return this.signinForm.get('username')}
+  get password(){return this.signinForm.get('password')}
+  
   onSubmit(){
     if(this.signinForm.valid){
-      console.log(this.signinForm.value)
       this.singin(this.signinForm.value)
     }
   }
@@ -49,7 +50,8 @@ export default class AuthSigninComponent implements OnInit {
         this.localServiceStorage.clear()
         this.localServiceStorage.setItem('user',payload)
         this.localServiceStorage.setItem('token',payload.token)
-        this.msgService.msgSucces('Authentification reussie', `Bienvenu ${payload.username}`)
+        this.msgService.topLetfMsg(`Bienvenu ${payload.username}`)
+        // this.msgService.msgSucces('Authentification reussie', )
         this.router.navigate([`/dashboard`]);
       },
       error: (error)=>{

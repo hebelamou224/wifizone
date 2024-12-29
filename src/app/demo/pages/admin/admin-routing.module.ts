@@ -6,8 +6,12 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'bootstrap',
-        loadComponent: () => import('./tbl-bootstrap/tbl-bootstrap.component')
+        path: 'wifizones',
+        loadComponent: () => import('./wifizones/wifizones.component')
+      },
+      {
+        path: 'users',
+        loadComponent: () => import('./users/admin-user.component')
       }
     ]
   }
@@ -17,4 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TablesRoutingModule {}
+export class AdminRoutingModule {}

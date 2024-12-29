@@ -1,9 +1,10 @@
 // angular import
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 
 // project import
 import { NavigationItem } from '../../navigation';
+import { LocalServiceStorage } from 'src/app/core/services/local-storage.service';
 
 @Component({
   selector: 'app-nav-collapse',
@@ -19,10 +20,17 @@ import { NavigationItem } from '../../navigation';
     ])
   ]
 })
-export class NavCollapseComponent {
+export class NavCollapseComponent implements OnInit {
   // public props
   visible = false;
   @Input() item: NavigationItem;
+  isAdmin: boolean = false;
+  constructor(
+    private localStorage: LocalServiceStorage
+  ){}
+  ngOnInit(): void {
+    this.isAdmin = this.localStorage.isAdmin()
+  }
 
   // public method
   navCollapse(e) {

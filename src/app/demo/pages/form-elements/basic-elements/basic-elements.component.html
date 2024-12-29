@@ -2,70 +2,73 @@
   <div class="col-sm-12">
     <app-card cardTitle="Basic Component" [options]="false">
       
-      <form >
+      <form [formGroup]="userInfo">
         <h5>Modifier le profile utilisateur</h5>
         <hr />
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="text">Username</label>
-              <input type="text" class="form-control" placeholder="Username" />
+              <label for="username">Username</label>
+              <input readonly id="username" formControlName="username" type="text" class="form-control" placeholder="Username" />
             </div>
             <div class="form-group">
-              <label for="text">Fullname</label>
-              <input type="text" class="form-control" placeholder="Fullname" />
+              <label for="fullname">Fullname</label>
+              <input formControlName="fullname" id="fullname" type="text" class="form-control" placeholder="Fullname" />
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+              <label for="email">Email address</label>
+              <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" />
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="text">Contact</label>
-              <input type="text" class="form-control" placeholder="Text" />
+              <label for="contact">Contact</label>
+              <input formControlName="contact" type="text" class="form-control" id="contact" placeholder="Enter your contact" />
             </div>
             <div class="mb-3 checkbox checkbox-fill d-inline">
-              <input formControlName="btnCheckSaveDetail" type="checkbox" name="checkbox-fill-1" id="checkbox-fill-1" checked="" />
+              <input formControlName="status" type="checkbox" name="checkbox-fill-1" id="checkbox-fill-1" checked="" />
               <label for="checkbox-fill-1" class="cr">Status du compte</label>
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Address</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div class="form-group mt-3">
+              <label for="address">Address</label>
+              <textarea formControlName="address" class="form-control" id="address" rows="3"></textarea>
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button (click)="update()" type="button" class="btn btn-primary">Save</button>
       </form>
       
-      <form >
+      <form [formGroup]="passwordForm">
         <h5 class="mt-5">Modifier le mot de password</h5>
         <hr />
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label for="exampleInputPassword1">Ancien mot de passs</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+              <label for="password">Ancien mot de passs</label>
+              <input formControlName="oldPassword" type="password" class="form-control" id="password" placeholder="Password" />
+              <div *ngIf="f.oldPassword?.errors?.['required'] && f.oldPassword?.touched" style="color: red;">
+                The old password is madatory
+              </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="exampleInputPassword1">Nouveau mot de pass</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+              <label for="new-password">Nouveau mot de pass</label>
+              <input formControlName="password" type="password" class="form-control" id="new-password" placeholder="Password" />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="exampleInputPassword1">Confirmation</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+              <label for="confirmation">Confirmation</label>
+              <input formControlName="confirmPassword" type="password" class="form-control" id="confirmation" placeholder="Password" />
             </div>
           </div>
-          <small id="passwordHelpBlock" class="form-text text-muted">
-            Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+          <small *ngIf="f.password?.errors?.['required'] && f.password?.touched || f.confirmPassword?.errors?.['required'] && f.confirmPassword?.touched" id="passwordHelpBlock" class="form-text text-muted">
+            The new password don't match at password confirmation
           </small>
         </div>
-        <button type="submit" class="mt-3 btn btn-primary">Save</button>
+        <button [disabled]="!passwordForm.valid" (click)="changePassword()" type="submit" class="mt-3 btn btn-primary">Save</button>
       </form>
      
       <form action="">

@@ -6,8 +6,12 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'basic',
+        path: 'profile',
         loadComponent: () => import('./basic-elements/basic-elements.component')
+      },
+      {
+        path: 'settings',
+        loadComponent: () => import('./settings/settings.component')
       }
     ]
   }
